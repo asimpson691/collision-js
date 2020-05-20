@@ -1,10 +1,11 @@
 import {Circle} from './shapes/circle.js';
+import {NonRotatableRectangle} from './shapes/rectangle.js'
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext('2d');
 
-var mouseObj = new Circle(null, null, 20); // object controlled by the mouse
-var targetObj = new Circle(canvas.width / 2, canvas.height / 2, 50);
+var mouseObj = new Circle(null, null, 30); // object controlled by the mouse
+var targetObj = new NonRotatableRectangle(350, 250, 100, 100);
 
 function draw() {
 
@@ -12,17 +13,17 @@ function draw() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // check for collision!
-    var colliding = targetObj.isCollisionWithCircle(mouseObj);
+    var colliding = mouseObj.isCollisionWithNonRotatableRectangle(targetObj);
     if (colliding) {
-        var targetObjColour = 'red';
+        var colour = 'red';
     }
     else {
-        var targetObjColour = 'blue';
+        var colour = 'blue';
     }
   
     // draw the targetObj and mouseObj
-    targetObj.draw(ctx, targetObjColour);
-    mouseObj.draw(ctx, 'yellow');    
+    targetObj.draw(ctx, colour);
+    mouseObj.draw(ctx, 'green');    
 }
 
 function calcMousePos(evt) {

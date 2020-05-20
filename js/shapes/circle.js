@@ -26,5 +26,34 @@ export class Circle {
         return dist2D(circle.centre, this.centre) <= (circle.radius + this.radius);
     }
 
+    isCollisionWithNonRotatableRectangle(rect) {
+        
+        let testX = null;
+        let testY = null;
+
+        if (this.centre.x < rect.x) {
+            testX = rect.x;
+        }   
+        else if (this.centre.x > rect.x + rect.width) {
+            testX = rect.x + rect.width;
+        }
+        else {testX = this.centre.x} // In this else branch the circle x coord must be inside the rectangle's left and right sides
+
+        if (this.centre.y < rect.y) {
+            testY = rect.y;
+        }   
+        else if (this.centre.y > rect.y + rect.height) {
+            testY = rect.y + rect.height;
+        }
+        else {testY = this.centre.y} // In this else branch the circle y coord must be inside the rectangle's top and bottom sides
+        
+        let dist = dist2D(
+            {x : testX, y : testY},
+            this.centre
+        );
+
+        return dist <= this.radius;
+    }
+
 }
 
